@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Create reusable ad element
   function createAd(width, height) {
     const wrapper = document.createElement("div");
+    wrapper.classList.add("ad-container");
     wrapper.style.textAlign = "center";
     wrapper.style.margin = "20px 0";
 
