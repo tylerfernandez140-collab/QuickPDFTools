@@ -18,6 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
 
   // Insert at bottom of main content or before footer
-  const main = document.querySelector("main") || document.body;
-  main.appendChild(adContainer);
+  const targetElement = document.getElementById("ad-container") || document.querySelector("main") || document.body;
+  targetElement.appendChild(adContainer);
 });
