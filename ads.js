@@ -1,55 +1,58 @@
-// ads.js — responsive Adsterra banner for all tools 
-document.addEventListener("DOMContentLoaded", () => { 
-  const adContainer = document.createElement("div"); 
-  adContainer.style.textAlign = "center"; 
-  adContainer.style.margin = "30px 0"; 
+document.addEventListener("DOMContentLoaded", () => {
+  const adKey = "ac1602dab0959a0c5e3cf43f316771a7"; // your Adsterra key
 
-  // Desktop Ad (728x90) 
-  const desktopAd = ` 
-    <div class="adsterra-banner desktop-ad"> 
-      <script type="text/javascript"> 
-        atOptions = { 
-          'key' : 'ac1602dab0959a0c5e3cf43f316771a7', 
-          'format' : 'iframe', 
-          'height' : 90, 
-          'width' : 728, 
-          'params' : {} 
-        }; 
-      </script> 
-      <script type="text/javascript" src="//www.highperformanceformat.com/ac1602dab0959a0c5e3cf43f316771a7/invoke.js"></script> 
-    </div> 
-  `; 
+  // Create reusable ad element
+  function createAd(width, height) {
+    const wrapper = document.createElement("div");
+    wrapper.style.textAlign = "center";
+    wrapper.style.margin = "20px 0";
 
-  // Mobile Ad (320x50) 
-  const mobileAd = ` 
-    <div class="adsterra-banner mobile-ad"> 
-      <script type="text/javascript"> 
-        atOptions = { 
-          'key' : 'ac1602dab0959a0c5e3cf43f316771a7', 
-          'format' : 'iframe', 
-          'height' : 50, 
-          'width' : 320, 
-          'params' : {} 
-        }; 
-      </script> 
-      <script type="text/javascript" src="//www.highperformanceformat.com/ac1602dab0959a0c5e3cf43f316771a7/invoke.js"></script> 
-    </div> 
-  `; 
+    const script1 = document.createElement("script");
+    script1.type = "text/javascript";
+    script1.innerHTML = `
+      atOptions = {
+        'key' : '${adKey}',
+        'format' : 'iframe',
+        'height' : ${height},
+        'width' : ${width},
+        'params' : {}
+      };
+    `;
+    const script2 = document.createElement("script");
+    script2.type = "text/javascript";
+    script2.src = `//www.highperformanceformat.com/${adKey}/invoke.js`;
 
-  adContainer.innerHTML = desktopAd + mobileAd; 
+    wrapper.appendChild(script1);
+    wrapper.appendChild(script2);
+    return wrapper;
+  }
 
-  // Insert at bottom of main content or before footer 
-  const main = document.querySelector("main") || document.body; 
-  main.appendChild(adContainer); 
+  // Determine if mobile or desktop
+  const isMobile = window.innerWidth <= 600;
+  const width = isMobile ? 320 : 728;
+  const height = isMobile ? 50 : 90;
 
-  // Add responsive styling 
-  const style = document.createElement("style"); 
-  style.textContent = ` 
-    .mobile-ad { display: none; } 
-    @media (max-width: 600px) { 
-      .desktop-ad { display: none; } 
-      .mobile-ad { display: block; } 
-    } 
-  `; 
-  document.head.appendChild(style); 
+  // Insert TOP banner (below header)
+  const header = document.querySelector("header");
+  if (header) header.insertAdjacentElement("afterend", createAd(width, height));
+
+  // Insert MIDDLE banner (below main)
+  const main = document.querySelector("main");
+  if (main) main.insertAdjacentElement("afterend", createAd(width, height));
+
+  // Insert BOTTOM sticky banner (mobile only)
+  if (isMobile) {
+    const stickyAd = createAd(320, 50);
+    stickyAd.style.position = "fixed";
+    stickyAd.style.bottom = "0";
+    stickyAd.style.left = "0";
+    stickyAd.style.right = "0";
+    stickyAd.style.background = "#fff";
+    stickyAd.style.zIndex = "9999";
+    stickyAd.style.boxShadow = "0 -2px 5px rgba(0,0,0,0.1)";
+    document.body.appendChild(stickyAd);
+
+    // Add spacing so it doesn’t cover footer
+    document.body.style.paddingBottom = "60px";
+  }
 });

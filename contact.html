@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="fWK56Frz8w6Uon4cFqoNIVGinNz02azxhLGc7Q19a7I" />
+  <meta name="description" content="Contact QuickPDFTools for support, feedback, or inquiries about our free online PDF tools.">
+  <meta name="keywords" content="contact QuickPDFTools, PDF tool support, feedback, online PDF tools inquiry">
+  <meta property="og:title" content="QuickPDFTools – Free Online PDF Tools">
+  <meta property="og:description" content="Merge, compress, and convert PDFs instantly. 100% free and private.">
+  <meta property="og:image" content="https://quickpdftools.netlify.app/favicon_io/favicon-96x96.png">
+  <meta property="og:url" content="https://quickpdftools.netlify.app/">
+  <title>Contact Us - QuickPDFTools</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="/favicon_io/favicon.ico?v=2" type="image/x-icon" sizes="128x128" rel="shortcut icon" />
+  <style>
+    .contact-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem;
+    }
+
+    .contact-box {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .contact-box input,
+    .contact-box textarea {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      resize: none;
+    }
+
+    .contact-box button {
+      margin-top: 1.5rem;
+      padding: 0.7rem 1.4rem;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(90deg, #007bff, #00c6ff);
+      color: white;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .contact-box button:hover {
+      background: linear-gradient(90deg, #0062e0, #009ce0);
+    }
+  </style>
+  
+</head>
+<body>
+  <header>
+    <h1>Contact Us</h1>
+    <p>We’d love to hear from you!</p>
+  </header>
+
+  <main class="contact-section">
+    <div class="contact-box">
+      <p>If you have any questions, suggestions, or feedback about QuickPDFTools, please reach out to us below.</p>
+
+      <form id="contactForm" onsubmit="sendEmail(event)">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="email" id="email" placeholder="Your Email" required />
+        <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+
+      <p style="margin-top: 1.5rem;">or email us directly at:<br>
+        <a href="mailto:ivancreates2025@gmail.com">ivancreates2025@gmail.com</a>
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 QuickPDFTools |
+      <a href="/privacy.html">Privacy Policy</a> |
+      <a href="/terms.html">Terms of Use</a> |
+      <a href="/contact.html">Contact</a> |
+      <a href="/about.html">About</a>
+    </p>
+  </footer>
+
+  <script>
+    function sendEmail(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      const mailtoLink = `mailto:ivancreates2025@gmail.com?subject=QuickPDFTools Inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(message)}%0D%0A%0D%0AFrom: ${encodeURIComponent(email)}`;
+
+      window.location.href = mailtoLink;
+    }
+  </script>
+  <script src="/ads.js"></script>
+</body>
+</html>
