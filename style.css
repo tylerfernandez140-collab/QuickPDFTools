@@ -1,0 +1,115 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html, body {
+  min-height: 100vh;
+}
+
+body {
+  background: #f9fbfd;
+  color: #333;
+  overflow-x: hidden;
+  margin-bottom: 6rem;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+}
+
+header {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  color: #fff;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+header h1 {
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+}
+
+header p {
+  margin-top: 0.5rem;
+  opacity: 0.9;
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 3rem 2rem;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.tool-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.tool-card img {
+  width: 80px;
+  height: 80px;
+}
+
+.tool-card h3 {
+  margin-top: 1rem;
+  color: #007bff;
+}
+
+.tool-card p {
+  font-size: 0.95rem;
+  margin: 0.5rem 0 1.5rem;
+  color: #555;
+}
+
+button {
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  border: none;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: linear-gradient(90deg, #0062e0, #009ce0);
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.9rem;
+  color: #666;
+  background: #f1f5f9;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.ad-banner {
+  text-align: center;
+  padding: 1rem;
+  background: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 2rem;
+}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Merge PDF | QuickPDFTools</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../favicon_io/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="../favicon_io/favicon.svg?v=2">
+  <link rel="manifest" href="../favicon_io/site.webmanifest">
+  <link rel="icon" href="../favicon_io/favicon.ico?v=2" type="image/x-icon" sizes="128x128" rel="shortcut icon" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Merge PDF</h1>
+    <p>Combine multiple PDF files into a single document instantly.</p>
+  </header>
+
+  <main class="merge-section">
+    <div class="merge-box">
+      <h2>Select your PDF files</h2>
+      <input type="file" id="pdfFiles" accept="application/pdf" multiple />
+      <button id="mergeBtn" style="margin-top: 1rem;">Merge PDFs</button>
+
+      <div id="status"></div>
+      <div id="downloadArea" style="margin-top: 1.5rem;"></div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 QuickPDFTools | Built with 💙 by Ivan</p>
+  </footer>
+
+  <script>
+    const fileInput = document.getElementById('pdfFiles');
+    const mergeBtn = document.getElementById('mergeBtn');
+    const statusDiv = document.getElementById('status');
+    const downloadArea = document.getElementById('downloadArea');
+
+    mergeBtn.addEventListener('click', async () => {
+      const files = fileInput.files;
+      downloadArea.innerHTML = "";
+      if (!files.length) {
+        statusDiv.innerHTML = "<p style='color:red'>Please select PDF files first.</p>";
+        return;
+      }
+
+      statusDiv.innerHTML = "<p style='color:#007bff'>Merging PDFs... Please wait.</p>";
+
+      try {
+        const mergedPdf = await PDFLib.PDFDocument.create();
+
+        for (const file of files) {
+          const arrayBuffer = await file.arrayBuffer();
+          const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
+          const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+          copiedPages.forEach((page) => mergedPdf.addPage(page));
+        }
+
+        const mergedPdfBytes = await mergedPdf.save();
+        const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+
+        statusDiv.innerHTML = "<p style='color:green'>✅ PDFs successfully merged!</p>";
+
+        // Create download button
+        const downloadBtn = document.createElement('a');
+        downloadBtn.href = url;
+        downloadBtn.download = 'merged.pdf';
+        downloadBtn.textContent = "Download Merged PDF";
+        downloadBtn.className = "download-btn";
+        downloadArea.appendChild(downloadBtn);
+
+      } catch (error) {
+        console.error(error);
+        statusDiv.innerHTML = "<p style='color:red'>❌ Error merging PDFs. Please try again.</p>";
+      }
+    });
+  </script>
+
+  <style>
+    .merge-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem;
+    }
+
+    .merge-box {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .merge-box input {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      width: 100%;
+    }
+
+    #status {
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .download-btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #007bff, #00c6ff);
+      color: #fff;
+      padding: 0.7rem 1.4rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s ease;
+    }
+
+    .download-btn:hover {
+      background: linear-gradient(90deg, #0062e0, #009ce0);
+    }
+  </style>
+  <script src="../ads.js"></script>
+</body>
+</html>

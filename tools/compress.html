@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compress PDF | QuickPDFTools</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../favicon_io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../favicon_io/favicon-96x96.png">
+  <link rel="icon" type="image/svg+xml" href="../favicon_io/favicon.svg?v=2">
+  <link rel="manifest" href="../favicon_io/site.webmanifest">
+  <link rel="icon" href="../favicon_io/favicon.ico?v=2" type="image/x-icon" sizes="128x128" rel="shortcut icon" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <style>
+    .merge-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem;
+    }
+
+    .merge-box {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .merge-box input {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      width: 100%;
+    }
+
+    #status {
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .download-btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #007bff, #00c6ff);
+      color: #fff;
+      padding: 0.7rem 1.4rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s ease;
+    }
+
+    .download-btn:hover {
+      background: linear-gradient(90deg, #0062e0, #009ce0);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Compress PDF</h1>
+    <p>Reduce PDF file size without losing much quality.</p>
+  </header>
+
+  <main class="merge-section">
+    <div class="merge-box">
+      <h2>Select your PDF file</h2>
+      <input type="file" id="pdfFile" accept="application/pdf" />
+      <button id="compressBtn" style="margin-top: 1rem;">Compress PDF</button>
+
+      <div id="status"></div>
+      <div id="downloadArea" style="margin-top: 1.5rem;"></div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 QuickPDFTools | Built with 💙 by Ivan</p>
+  </footer>
+
+  <script>
+    const pdfFile = document.getElementById('pdfFile');
+    const compressBtn = document.getElementById('compressBtn');
+    const statusDiv = document.getElementById('status');
+    const downloadArea = document.getElementById('downloadArea');
+
+    compressBtn.addEventListener('click', async () => {
+      const file = pdfFile.files[0];
+      if (!file) {
+        statusDiv.innerHTML = "<p style='color:red'>Please select a PDF first.</p>";
+        return;
+      }
+
+      statusDiv.innerHTML = "<p style='color:#007bff'>Compressing PDF... Please wait.</p>";
+
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+
+        const compressedBytes = await pdfDoc.save({ useObjectStreams: true });
+
+        const blob = new Blob([compressedBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+
+        statusDiv.innerHTML = "<p style='color:green'>✅ Compression complete!</p>";
+
+        const downloadBtn = document.createElement('a');
+        downloadBtn.href = url;
+        downloadBtn.download = 'compressed.pdf';
+        downloadBtn.textContent = "Download Compressed PDF";
+        downloadBtn.className = "download-btn";
+        downloadArea.appendChild(downloadBtn);
+      } catch (err) {
+        statusDiv.innerHTML = "<p style='color:red'>❌ Error compressing file.</p>";
+      }
+    });
+  </script>
+  <script src="../ads.js"></script>
+</body>
+</html>
