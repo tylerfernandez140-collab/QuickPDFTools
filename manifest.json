@@ -1,0 +1,21 @@
+{
+  "name": "QuickPDFTools",
+  "short_name": "QuickPDF",
+  "description": "Free & Easy Online PDF Tools – All in One Place",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#f9fbfd",
+  "theme_color": "#007bff",
+  "icons": [
+    {
+      "src": "/favicon_io/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon_io/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
